@@ -114,7 +114,7 @@
             return [200, product, {}];
         });
 
-        $httpBackend.whenGET("/app/").passThrough();
+        $httpBackend.whenGET(/app/).passThrough();
 
     });
 }());
