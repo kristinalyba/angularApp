@@ -1,23 +1,37 @@
-<form name="productForm" class="form-horizontal">
+<form class="form-horizontal" name="productForm"
+      novalidate>
     <fieldset>
         <legend>Basic Product Information</legend>
-        <div class="form-group">
+        <div class="form-group"
+             ng-class="{'has-error': productForm.inputProductName.$invalid && productForm.inputProductName.$dirty}">
             <label for="inputProductName" class="col-md-2 control-label">Product Name</label>
-            <div class="col-md-10">
+            <div class="col-md-4">
                 <input class="form-control"
                        id="inputProductName"
+                       name="inputProductName"
                        type="text"
-                       placeholder="Product Name"
-                       ng-model="vm.product.productName"/>
+                       placeholder="Product Name (required)"
+                       ng-model="vm.product.productName"
+                       ng-minlength="4"
+                       ng-maxlength="12"
+                       required/>
             </div>
+            <span class="help-block has-error">
+                <span ng-show="productForm.inputProductName.$error.required">Product name is required.</span>
+                <span ng-show="productForm.inputProductName.$error.minlength">Must be at least 4 characters in length.</span>
+                <span ng-show="productForm.inputProductName.$error.maxlength">Cannot exceed 12 characters in length.</span>
+            </span>
         </div>
-        <div class="form-group">
+        <div class="form-group"
+             ng-class="{'has-error': productForm.inputProductCode.$invalid && productForm.inputProductCode.$dirty}">
             <label for="inputProductCode" class="col-md-2 control-label">Product Code</label>
             <div class="col-md-4">
                 <input class="form-control"
                        id="inputProductCode"
-                       ui-mask="AAA-****"
-                       ng-model="vm.product.productCode"/>
+                       name="inputProductCode"
+                       ui-mask="AAA-**** (required)"
+                       ng-model="vm.product.productCode"
+                       required/>
             </div>
         </div>
         <div class="form-group">
@@ -54,7 +68,7 @@
                 <span>
                     <button class="btn btn-primary"
                             style="width: 80px;margin-right: 10px"
-                            ng-click="vm.submit()">
+                            ng-click="vm.submit(productForm.$valid)">
                         Save
                     </button>
                 </span>
