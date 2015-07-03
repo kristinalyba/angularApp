@@ -4,6 +4,8 @@
     app = angular.module("productManagement",
         ["common.services",
             "ui.router",
+            "ui.mask",
+            "ui.bootstrap",
             "productResourceMock"]);
 
     app.config(["$stateProvider", "$urlRouterProvider",
@@ -27,9 +29,10 @@
                     controller: "ProductEditCtrl as vm",
                     resolve: {
                         productResource: "productResource",
+
                         product: function(productResource, $stateParams){
                             var productId = $stateParams.productId;
-                            return productResource.get({productId: productId})
+                            return productResource.get({productId: productId}).$promise;
                         }
                     }
                 })
@@ -51,6 +54,7 @@
                     controller: "ProductDetailCtrl as vm",
                     resolve: {
                         productResource: "productResource",
+
                         product: function(productResource, $stateParams){
                             var productId = $stateParams.productId;
                             return productResource.get({productId: productId}).$promise;
