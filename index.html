@@ -20,6 +20,8 @@
     <script src="js/ui-utils.js"></script>
     <script src="js/ui-bootstrap-tpls-0.13.0.min.js"></script>
     <script src="js/toastr.min.js"></script>
+    <script src="js/d3.min.js"></script>
+    <script src="js/angular-charts.min.js"></script>
 
     <!-- Application Script -->
     <script src="app/app.js"></script>
@@ -29,10 +31,14 @@
     <script src="app/products/productDetailCtrl.js"></script>
     <script src="app/products/productEditCtrl.js"></script>
 
+    <!--Price Controllers-->
+    <script src="app/prices/priceAnalyticsCtrl.js"></script>
+
     <!-- Services -->
     <script src="common/services/common.services.js"></script>
     <script src="common/services/productResource.js"></script>
     <script src="common/services/productResourceMock.js"></script>
+    <script src="common/services/productService.js"></script>
 </head>
 <body ng-app="productManagement">
     <nav class="navbar navbar-inverse">
@@ -56,6 +62,7 @@
                     <li><a ui-sref="productEdit.info({productId:0})">
                         <i class="glyphicon glyphicon-plus"></i>
                         Add Product</a></li>
+                    <li><a ui-sref="priceAnalytics">Price Analytics</a></li>
                 </ul>
             </div>
 

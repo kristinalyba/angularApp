@@ -6,7 +6,21 @@
             "ui.router",
             "ui.mask",
             "ui.bootstrap",
+            "angularCharts",
             "productResourceMock"]);
+
+    app.config(function ($provide) {
+        $provide.decorator("$exceptionHandler",
+            ["$delegate",
+                function ($delegate) {
+                    return function (exception, cause) {
+                        exception.message = "Please contact the Help Desk! \n Message: " +
+                            exception.message;
+                        $delegate(exception, cause);
+                        alert(exception.message);
+                    };
+                }]);
+    });
 
     app.config(["$stateProvider", "$urlRouterProvider",
         function($stateProvider, $urlRouterProvider){
@@ -58,6 +72,27 @@
                         product: function(productResource, $stateParams){
                             var productId = $stateParams.productId;
                             return productResource.get({productId: productId}).$promise;
+                        }
+                    }
+                })
+                .state("priceAnalytics", {
+                    url: "/priceAnalytics",
+                    templateUrl: "app/prices/priceAnalyticsView.html",
+                    controller: "PriceAnalyticsCtrl",
+                    resolve: {
+                        productResource: "productResource",
+
+                        products: function(productResource){
+                            return productResource.query(function(response){
+
+                            }, function(response){
+                                if(response.status == 404){
+                                    alert("Error accessing resource: " +
+                                    response.config.method + " " + response.config.url);
+                                } else {
+                                    alert(response.statusText);
+                                }
+                            }).$promise;
                         }
                     }
                 })
